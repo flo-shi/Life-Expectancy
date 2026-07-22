@@ -1,0 +1,219 @@
+# 🌍 Life Expectancy Prediction Using Machine Learning
+
+## 📌 Project Overview
+
+This project aims to build a machine learning regression model capable of predicting **life expectancy** using demographic, economic, and health-related indicators collected by the World Health Organization (WHO).
+
+The project follows a complete data science workflow—from data cleaning and exploratory data analysis (EDA) to feature engineering, feature selection, model building, evaluation, and interpretation.
+
+This project was developed as a learning project to strengthen my understanding of regression analysis and the end-to-end machine learning pipeline.
+
+---
+
+## 🎯 Objectives
+
+* Understand the factors influencing life expectancy.
+* Build a regression model to predict life expectancy.
+* Learn and apply best practices in data preprocessing.
+* Compare different regression algorithms.
+* Evaluate model performance using appropriate regression metrics.
+
+---
+
+## 📂 Dataset
+
+**Dataset:** WHO Life Expectancy Dataset
+
+The dataset contains health, economic, and social indicators collected from multiple countries over several years.
+
+### Target Variable
+
+* **Life expectancy** (years)
+
+### Example Features
+
+* Adult Mortality
+* Infant Deaths
+* Alcohol Consumption
+* Percentage Expenditure
+* Hepatitis B Immunization
+* Measles Cases
+* BMI
+* Under-five Deaths
+* Polio Immunization
+* Total Expenditure
+* Diphtheria Immunization
+* HIV/AIDS
+* GDP
+* Population
+* Thinness (1–19 years)
+* Thinness (5–9 years)
+* Income Composition of Resources
+* Schooling
+* Country
+* Status (Developed / Developing)
+* Year
+
+---
+
+## 🛠 Technologies Used
+
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Scikit-learn
+* Jupyter Notebook
+
+---
+
+## 📊 Project Workflow
+
+### 1. Data Loading
+
+* Imported dataset
+* Checked data types
+* Explored dataset structure
+
+### 2. Data Cleaning
+
+* Removed missing target values
+* Identified missing values in predictor variables
+* Imputed missing values using appropriate strategies
+* Checked for duplicate records
+
+### 3. Exploratory Data Analysis (EDA)
+
+Performed:
+
+* Summary statistics
+* Distribution analysis
+* Outlier detection
+* Correlation analysis
+* Feature relationship analysis
+
+Visualizations included:
+
+* Histograms
+* Boxplots
+* Correlation heatmap
+* Scatter plots
+* Bar charts
+
+---
+
+## ⚙ Feature Engineering
+
+* Encoded categorical variables
+* Investigated feature distributions
+* Treated skewed variables where appropriate
+* Prepared features for machine learning
+
+---
+
+## 🎯 Feature Selection
+
+Feature selection was performed using:
+
+* Correlation analysis
+* Variance Inflation Factor (VIF)
+* Recursive Feature Elimination (RFE)
+
+These techniques helped identify the most informative variables while reducing multicollinearity.
+
+---
+
+## 🤖 Machine Learning Models
+
+Models explored include:
+
+* Linear Regression
+* Ridge Regression
+* Lasso Regression
+* Decision Tree Regressor
+* Random Forest Regressor
+
+---
+
+## 📈 Model Evaluation
+
+Regression models were evaluated using:
+
+* MAE (Mean Absolute Error)
+* MSE (Mean Squared Error)
+* RMSE (Root Mean Squared Error)
+* R² Score
+
+---
+
+## 📁 Repository Structure
+
+```text
+Life-Expectancy-Prediction/
+│
+├── data/
+│   └── Life Expectancy Data.csv
+│
+├── notebooks/
+│   └── Life_Expectancy_Prediction.ipynb
+│
+├── images/
+│   ├── histograms/
+│   ├── boxplots/
+│   ├── correlation_heatmap.png
+│   └── feature_importance.png
+│
+├── README.md
+└── requirements.txt
+```
+
+---
+
+## 🚀 Future Improvements
+
+* Hyperparameter tuning
+* Cross-validation
+* Feature importance analysis
+* Model explainability using SHAP values
+* Deployment using Streamlit
+* Interactive dashboard using Power BI
+
+---
+
+## 📚 Key Skills Demonstrated
+
+* Data Cleaning
+* Exploratory Data Analysis (EDA)
+* Missing Value Treatment
+* Feature Engineering
+* Feature Selection
+* Regression Modeling
+* Model Evaluation
+* Data Visualization
+* Python Programming
+* Machine Learning with Scikit-learn
+
+---
+
+## 📌 Results
+
+*(To be updated after model training.)*
+
+Example:
+
+* Best Performing Model:
+* RMSE:
+* MAE:
+* R² Score:
+
+---
+
+## 👩‍💻 Author
+
+**Florence Wanjiru Kania**
+
+Bachelor of Science in Computer Science
+
+Passionate about Data Science, Machine Learning, and using data to solve real-world problems.
+
+
