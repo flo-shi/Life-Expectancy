@@ -1,167 +1,170 @@
-# 🌍 Life Expectancy Prediction Using Machine Learning
+# Life Expectancy Prediction Using Machine Learning
 
-## 📌 Project Overview
+## Project Overview
 
-This project aims to build a machine learning regression model capable of predicting **life expectancy** using demographic, economic, and health-related indicators collected by the World Health Organization (WHO).
+This project develops a **Linear Regression** model to predict a country's life expectancy using demographic, economic, healthcare, and mortality indicators.
 
-The project follows a complete data science workflow—from data cleaning and exploratory data analysis (EDA) to feature engineering, feature selection, model building, evaluation, and interpretation.
-
-This project was developed as a learning project to strengthen my understanding of regression analysis and the end-to-end machine learning pipeline.
+The project demonstrates the complete machine learning workflow, including data cleaning, exploratory data analysis (EDA), feature engineering, preprocessing, model training, evaluation, and regression diagnostics.
 
 ---
 
-## 🎯 Objectives
+##  Dataset
 
-* Understand the factors influencing life expectancy.
-* Build a regression model to predict life expectancy.
-* Learn and apply best practices in data preprocessing.
-* Compare different regression algorithms.
-* Evaluate model performance using appropriate regression metrics.
-
----
-
-## 📂 Dataset
-
-**Dataset:** WHO Life Expectancy Dataset
-
-The dataset contains health, economic, and social indicators collected from multiple countries over several years.
+The dataset contains country-level health and socioeconomic indicators collected over multiple years.
 
 ### Target Variable
 
-* **Life expectancy** (years)
+- **Life expectancy**
 
-### Example Features
+### Features include
 
-* Adult Mortality
-* Infant Deaths
-* Alcohol Consumption
-* Percentage Expenditure
-* Hepatitis B Immunization
-* Measles Cases
-* BMI
-* Under-five Deaths
-* Polio Immunization
-* Total Expenditure
-* Diphtheria Immunization
-* HIV/AIDS
-* GDP
-* Population
-* Thinness (1–19 years)
-* Thinness (5–9 years)
-* Income Composition of Resources
-* Schooling
-* Country
-* Status (Developed / Developing)
-* Year
-
----
-
-## 🛠 Technologies Used
-
-* Python
-* Pandas
-* NumPy
-* Matplotlib
-* Scikit-learn
-* Jupyter Notebook
+- Adult Mortality
+- Infant deaths
+- Alcohol Consumption
+- Percentage Expenditure
+- Hepatitis B
+- Measles
+- BMI
+- Under-five deaths
+- Polio
+- Total Expenditure
+- Diphtheria
+- HIV/AIDS
+- GDP
+- Population
+- Thinness (1–19 years)
+- Thinness (5–9 years)
+- Income Composition of Resources
+- Schooling
+- Status (Developed / Developing)
+- Year
 
 ---
 
-## 📊 Project Workflow
+# Project Objectives
 
-### 1. Data Loading
-
-* Imported dataset
-* Checked data types
-* Explored dataset structure
-
-### 2. Data Cleaning
-
-* Removed missing target values
-* Identified missing values in predictor variables
-* Imputed missing values using appropriate strategies
-* Checked for duplicate records
-
-### 3. Exploratory Data Analysis (EDA)
-
-Performed:
-
-* Summary statistics
-* Distribution analysis
-* Outlier detection
-* Correlation analysis
-* Feature relationship analysis
-
-Visualizations included:
-
-* Histograms
-* Boxplots
-* Correlation heatmap
-* Scatter plots
-* Bar charts
+- Explore factors influencing life expectancy.
+- Perform exploratory data analysis.
+- Clean and preprocess the dataset.
+- Handle missing values and outliers.
+- Engineer meaningful features.
+- Train a Linear Regression model.
+- Evaluate model performance using multiple regression metrics.
+- Validate regression assumptions through residual analysis.
 
 ---
 
-## ⚙ Feature Engineering
+# Technologies Used
 
-* Encoded categorical variables
-* Investigated feature distributions
-* Treated skewed variables where appropriate
-* Prepared features for machine learning
-
----
-
-## 🎯 Feature Selection
-
-Feature selection was performed using:
-
-* Correlation analysis
-* Variance Inflation Factor (VIF)
-* Recursive Feature Elimination (RFE)
-
-These techniques helped identify the most informative variables while reducing multicollinearity.
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- SciPy
 
 ---
 
-## 🤖 Machine Learning Models
-
-Models explored include:
-
-* Linear Regression
-* Ridge Regression
-* Lasso Regression
-* Decision Tree Regressor
-* Random Forest Regressor
-
----
-
-## 📈 Model Evaluation
-
-Regression models were evaluated using:
-
-* MAE (Mean Absolute Error)
-* MSE (Mean Squared Error)
-* RMSE (Root Mean Squared Error)
-* R² Score
+# Pipeline Summary
+Missing value imputation — median by country, with Status-level and global fallbacks; rows with missing target values dropped.
+Categorical encoding — dummy encoding for Status; Country dropped due to high cardinality.
+Outlier handling — log-transform applied to naturally skewed columns (GDP, Population, HIV/AIDS, etc.) rather than removing genuine extreme values.
+Train-test split — 80/20, performed before scaling or feature selection to prevent data leakage.
+Feature selection — correlation analysis on the training set; multicollinear and weakly-correlated features removed, leaving 14 features.
+Scaling — StandardScaler, fit on training data only.
+Model — LinearRegression (scikit-learn).
+Evaluation — R², RMSE, MAE, plus Q-Q and residual plots.
 
 ---
 
-## 📁 Repository Structure
+# Data Preprocessing
+## Missing Value Treatment
+Target column (Life expectancy) and Adult Mortality: 10 rows had missing values, all from countries with only a single row in the dataset (e.g., Monaco, Nauru, San Marino). Since no country-level average could be computed for these, and imputing the target risks fabricating information the model would learn from, these 10 rows were dropped.
+All other columns with missing values (Hepatitis B, GDP, Population, Alcohol, BMI, Polio, Total expenditure, Diphtheria, thinness indicators, Income composition of resources, Schooling): imputed using a three-tier median strategy — country median first, falling back to Developed/Developing status median where a country had no data at all, with a global median as a final safety net.
+## Categorical Encoding
+Status (Developed/Developing): dummy encoded into a single binary column (Status_Developing), avoiding the dummy variable trap.
+Country (193 unique values): dropped as a model feature due to high cardinality relative to sample size; its information is substantially captured by GDP, Income composition, Schooling, and Population instead.
+## Outlier Handling
 
-```text
+Boxplot analysis identified several columns with a high number of statistical outliers (HIV/AIDS, Measles, GDP, Population, under-five deaths, percentage expenditure, infant deaths). These were determined to be genuine right-skew in real-world data (e.g., large countries naturally have larger populations) rather than data errors, so a log transform (log1p) was applied instead of removing the values, preserving all rows while correcting the skew.
+
+## Train-Test Split
+
+Data was split 80/20 into training (2,342 rows) and test (586 rows) sets before any scaling or feature-selection statistics were computed, to prevent test-set information from leaking into modeling decisions.
+
+## Feature Selection
+
+A correlation analysis (Pearson) was run on the training set only. Two pairs of severely multicollinear features were identified and reduced to one each:
+
+infant deaths vs. under-five deaths (r = 0.997) → kept under-five deaths
+thinness 1-19 years vs. thinness 5-9 years (r = 0.93) → kept thinness 1-19 years
+
+Population, Year, and Total expenditure were dropped for showing weak or negligible correlation with the target (|r| < 0.23).
+
+Final feature set (14 features): Schooling, Income composition of resources, Adult Mortality, HIV/AIDS, GDP, BMI, under-five deaths, thinness 1-19 years, Status_Developing, Diphtheria, Polio, Alcohol, percentage expenditure, Hepatitis B, Measles.
+
+## Feature Scaling
+
+Features were standardized (StandardScaler) — fit on the training set only, then applied to both training and test sets, to avoid data leakage.
+
+# Model
+
+A standard Linear Regression model was fit on the scaled training data.
+
+# Model Performance
+
+| Metric | Score |
+|---------|-------|
+| R² Score | **0.85** |
+| RMSE | **3.57** |
+| MAE | **2.76** |
+
+### Interpretation
+
+The model explains approximately **85% of the variation in life expectancy**.
+
+On average, predictions differ from the true life expectancy by approximately **2.76 years**.
+
+---
+
+# Regression Diagnostics
+
+To validate the assumptions of Linear Regression, residual analysis was performed.
+
+Diagnostics included:
+
+- Residual vs Predicted Plot
+- Q-Q Plot
+- Residual Distribution
+
+### Findings
+
+- Residuals were randomly distributed around zero.
+- No obvious systematic pattern was observed.
+- Residuals were approximately normally distributed.
+- Slight deviations in the tails suggest a few extreme prediction errors, which are expected in real-world datasets.
+
+Overall, the regression assumptions were reasonably satisfied.
+
+---
+
+# Project Structure
+
+```
 Life-Expectancy-Prediction/
 │
 ├── data/
 │   └── Life Expectancy Data.csv
 │
 ├── notebooks/
-│   └── Life_Expectancy_Prediction.ipynb
+│   └── Life_Expectancy_Regression.ipynb
 │
 ├── images/
-│   ├── histograms/
-│   ├── boxplots/
 │   ├── correlation_heatmap.png
-│   └── feature_importance.png
+│   ├── residual_plot.png
+│   ├── qq_plot.png
+│   └── distributions.png
 │
 ├── README.md
 └── requirements.txt
@@ -169,51 +172,49 @@ Life-Expectancy-Prediction/
 
 ---
 
-## 🚀 Future Improvements
+# Key Learning Outcomes
 
-* Hyperparameter tuning
-* Cross-validation
-* Feature importance analysis
-* Model explainability using SHAP values
-* Deployment using Streamlit
-* Interactive dashboard using Power BI
+Through this project, I gained practical experience in:
 
----
-
-## 📚 Key Skills Demonstrated
-
-* Data Cleaning
-* Exploratory Data Analysis (EDA)
-* Missing Value Treatment
-* Feature Engineering
-* Feature Selection
-* Regression Modeling
-* Model Evaluation
-* Data Visualization
-* Python Programming
-* Machine Learning with Scikit-learn
+- Exploratory Data Analysis (EDA)
+- Missing value treatment
+- Feature engineering
+- Outlier analysis
+- Log transformation
+- Feature selection
+- Feature scaling
+- Building regression models
+- Model evaluation
+- Residual analysis
+- Interpreting regression diagnostics
+- End-to-end machine learning workflow
 
 ---
 
-## 📌 Results
+# Future Improvements
 
-*(To be updated after model training.)*
-
-Example:
-
-* Best Performing Model:
-* RMSE:
-* MAE:
-* R² Score:
+-Heavy-tailed residuals suggest a handful of countries/years are poorly captured by the linear relationship
+ possibly due to factors not present in this dataset (conflict, healthcare system quality, pandemics).
+-The mild heteroscedasticity in the mid-prediction range suggests model precision is not perfectly uniform
+ across the full life expectancy range.
+-Median imputation, while simple and appropriate for a first project, slightly reduces variance in the imputed
+ columns compared to more advanced methods (e.g., KNN or regression imputation).
 
 ---
 
-## 👩‍💻 Author
+# Conclusion 
+The linear regression model provides a solid, interpretable baseline for predicting life expectancy, 
+explaining 85% of variance with an average error of under 3 years. Socioeconomic and health-system factors 
+(schooling, income composition, adult mortality, HIV/AIDS prevalence) emerged as the dominant predictors, 
+consistent with established public health research.
 
-**Florence Wanjiru Kania**
+---
 
-Bachelor of Science in Computer Science
+# Author
 
-Passionate about Data Science, Machine Learning, and using data to solve real-world problems.
+**Florence Kania**
+
+Computer Scientist | Data Scientist | Data Analyst
+
 
 
